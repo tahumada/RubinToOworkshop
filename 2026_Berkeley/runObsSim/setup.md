@@ -27,4 +27,4 @@ options:
   --force_strategy FORCE_STRATEGY
                         The type of strategy to enforce on the resulting simulation. Options are 'gold', 'silver', 'custom1', and 'custom2'
 ```
-9. As you desire, change the desired strategy using the `--force_strategy` flag, and lines 395:443.
+9. As you desire, change the desired strategy using the `--force_strategy` flag, and lines 395:443 in `runSim_S251112cm.py`.
