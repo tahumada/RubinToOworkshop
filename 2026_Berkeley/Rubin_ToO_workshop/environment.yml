@@ -1,0 +1,28 @@
+name: rubin-too-workshop
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - jupyterlab
+  - ipykernel
+  - numpy=1.26.4
+  - "pandas>=2.2,<2.4"
+  - matplotlib
+  - astropy
+  - pytables
+  - h5py
+  - scipy
+  - tqdm
+  - numba
+  - llvmlite
+  - lxml
+  - astroquery
+  - regions
+  - networkx
+  - pooch
+  - pip:
+      - sncosmo
+      - redback
+      - lightcurvelynx
+      - redback-surrogates
