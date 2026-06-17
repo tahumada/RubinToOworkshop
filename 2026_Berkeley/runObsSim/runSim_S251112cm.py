@@ -16,6 +16,7 @@ import pandas as pd
 import copy
 import argparse
 import logging
+from strategies import *
 
 logging.basicConfig(
     level=logging.INFO,
@@ -214,6 +215,21 @@ def split_regions(x):
     regions.sort()
     return regions
 
+
+def get_GW_ToO_strategy(strategy):
+
+    times,bands_at_times,nvis,exptimes = [],[],[],[]
+    
+    name =  strategy['name']
+    # print(name_as_string)
+    for k in list(strategy.keys())[1:]:
+        times.append(strategy[k]['time'])
+        bands_at_times.append(strategy[k]['bands_at_times'])
+        nvis.append(strategy[k]['nvis'])
+        exptimes.append(strategy[k]['exptimes'])
+    times = np.array(times,float) 
+    
+    return name, times, bands_at_times, nvis, exptimes
 
 eventTriggerTime = 60991  # The MJD that S251112cm went off
 day_obs = getDayObsFromDateTime(
