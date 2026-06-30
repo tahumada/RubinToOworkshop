@@ -401,65 +401,90 @@ starting_scheduler, _, nside = simulate_lsst.setup_scheduler(
 
 # # Add the new surveys
 
-additional_too_surveys = []
+# additional_too_surveys = []
 
 # Use no safety masks - this is fine for survey performance comparison
 masks = []
 
+# Strategies to test for the Rubin ToO 2026 paper
+strategies = [] # add in the strategy names as a list here
+for strategy in strategies:
+    name, times, bands_at_times, nvis, exptimes = get_GW_ToO_strategy(strategy)
+    starting_scheduler.survey_lists[0].append(
+        ToOScriptedSurvey(
+            masks,
+            nside=32,
+            followup_footprint=np.ones(hp.nside2npix(32)),
+            times=times,
+            bands_at_times=bands_at_times,
+            nvis=nvis,
+            exptimes=exptimes,
+            detailers=None,
+            too_types_to_follow=[f"GW_case_{strategy}"],
+            survey_name=f"ToO, GW_case_{strategy}",
+            target_name_base=f"GW_case_{strategy}",
+            observation_reason=f"gw_case_{strategy}",
+            science_program="BLOCK-407",
+            flushtime=48,
+            n_snaps=1,
+        )
+    )
+
+
 # ## custom1
 
-times = np.array([0, 2, 4, 24, 48, 72], float)
-bands_at_times = ["ugri", "ugri", "ugri", "gri", "gri", "gri"]
-nvis = [4, 4, 4, 6, 6, 6]
-exptimes = [30.0, 30.0, 30.0, 30.0, 30.0, 30.0]
-additional_too_surveys.append(
-    ToOScriptedSurvey(
-        masks,
-        nside=32,
-        followup_footprint=np.ones(hp.nside2npix(32)),
-        times=times,
-        bands_at_times=bands_at_times,
-        nvis=nvis,
-        exptimes=exptimes,
-        detailers=None,
-        too_types_to_follow=["GW_case_custom1"],
-        survey_name="ToO, GW_case_custom1",
-        target_name_base="GW_case_custom1",
-        observation_reason="gw_case_custom1",
-        science_program="BLOCK-407",
-        flushtime=48,
-        n_snaps=1,
-    )
-)
+# times = np.array([0, 2, 4, 24, 48, 72], float)
+# bands_at_times = ["ugri", "ugri", "ugri", "gri", "gri", "gri"]
+# nvis = [4, 4, 4, 6, 6, 6]
+# exptimes = [30.0, 30.0, 30.0, 30.0, 30.0, 30.0]
+# additional_too_surveys.append(
+#     ToOScriptedSurvey(
+#         masks,
+#         nside=32,
+#         followup_footprint=np.ones(hp.nside2npix(32)),
+#         times=times,
+#         bands_at_times=bands_at_times,
+#         nvis=nvis,
+#         exptimes=exptimes,
+#         detailers=None,
+#         too_types_to_follow=["GW_case_custom1"],
+#         survey_name="ToO, GW_case_custom1",
+#         target_name_base="GW_case_custom1",
+#         observation_reason="gw_case_custom1",
+#         science_program="BLOCK-407",
+#         flushtime=48,
+#         n_snaps=1,
+#     )
+# )
 
-# # custom2
+# # # custom2
 
-times = np.array([0, 2, 4, 24, 48, 72], float)
-bands_at_times = ["gr", "gr", "gri", "gri", "gri", "gri"]
-nvis = [4, 4, 4, 6, 6, 6]
-exptimes = [30.0, 30.0, 30.0, 30.0, 30.0, 30.0]
-additional_too_surveys.append(
-    ToOScriptedSurvey(
-        masks,
-        nside=32,
-        followup_footprint=np.ones(hp.nside2npix(32)),
-        times=times,
-        bands_at_times=bands_at_times,
-        nvis=nvis,
-        exptimes=exptimes,
-        detailers=None,
-        too_types_to_follow=["GW_case_custom2"],
-        survey_name="ToO, GW_case_custom2",
-        target_name_base="GW_case_custom2",
-        observation_reason="gw_case_custom2",
-        science_program="BLOCK-407",
-        flushtime=48,
-        n_snaps=1,
-    )
-)
+# times = np.array([0, 2, 4, 24, 48, 72], float)
+# bands_at_times = ["gr", "gr", "gri", "gri", "gri", "gri"]
+# nvis = [4, 4, 4, 6, 6, 6]
+# exptimes = [30.0, 30.0, 30.0, 30.0, 30.0, 30.0]
+# additional_too_surveys.append(
+#     ToOScriptedSurvey(
+#         masks,
+#         nside=32,
+#         followup_footprint=np.ones(hp.nside2npix(32)),
+#         times=times,
+#         bands_at_times=bands_at_times,
+#         nvis=nvis,
+#         exptimes=exptimes,
+#         detailers=None,
+#         too_types_to_follow=["GW_case_custom2"],
+#         survey_name="ToO, GW_case_custom2",
+#         target_name_base="GW_case_custom2",
+#         observation_reason="gw_case_custom2",
+#         science_program="BLOCK-407",
+#         flushtime=48,
+#         n_snaps=1,
+#     )
+# )
 
-for s in additional_too_surveys:
-    starting_scheduler.survey_lists[0].append(s)
+# for s in additional_too_surveys:
+#     starting_scheduler.survey_lists[0].append(s)
 
 # Could consider placing a single seeing value
 swap_seeing = False
